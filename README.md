@@ -28,4 +28,4 @@ Aplicativo web (PWA) para registrar os pedidos de um evento beneficente (pastela
 
 ## 👤 Autor
 
-**Paulo Henrique Marques** · [GitHub](https://github.com/pmw17)
+**Paulo Henrique Marques** · [GitHub](https://github.com/paulo-marques-dev)
