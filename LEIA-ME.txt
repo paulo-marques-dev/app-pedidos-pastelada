@@ -1,0 +1,92 @@
+========================================================
+  PASTELADA DA IGREJA - APP DE PEDIDOS
+========================================================
+
+O app tem 4 telas (botões na parte de baixo):
+
+  🧾 Novo Pedido  -> registra o nome do cliente e os
+                     sabores/quantidades do pedido dele.
+  📋 Pedidos      -> lista todos os pedidos, com totais
+                     que atualizam sozinhos.
+  🥟 Sabores      -> cadastra e remove sabores.
+  📊 Resumo       -> total de pastéis por sabor (útil
+                     para a cozinha) e total geral.
+
+--------------------------------------------------------
+  COMO FUNCIONA
+--------------------------------------------------------
+
+  - A PÁGINA (o app em si) fica hospedada no VERCEL.
+  - Os DADOS (pedidos e sabores) ficam no SUPABASE, que
+    sincroniza tudo em TEMPO REAL entre todos os
+    aparelhos que abrirem o link ao mesmo tempo.
+
+O indicador no topo mostra:
+  "Sincronizado"        -> conectado ao Supabase (ok!)
+  "Sem conexão"         -> sem internet / config errada
+  "Somente este aparelho" -> ainda sem configurar o
+                             Supabase (salva só localmente)
+
+--------------------------------------------------------
+  PASSO 1 - CRIAR O BANCO NO SUPABASE (gratuito)
+--------------------------------------------------------
+
+1) Acesse  https://supabase.com  e crie uma conta
+   (pode entrar com o Google).
+
+2) Clique em "New project".
+   - Escolha uma organização (ou crie uma).
+   - Dê um nome (ex: pastelada).
+   - Crie uma senha de banco (guarde, mas você não vai
+     precisar dela no app).
+   - Região: escolha "South America (São Paulo)".
+   - Clique em "Create new project" e aguarde ~1 min.
+
+3) Criar as tabelas:
+   - No menu lateral, abra "SQL Editor".
+   - Clique em "New query".
+   - Abra o arquivo  supabase-setup.sql  (está nesta
+     pasta), copie TODO o conteúdo, cole ali e clique
+     em "Run".
+   - Deve aparecer "Success". Pronto: tabelas criadas,
+     permissões liberadas e tempo real ativado.
+
+4) Pegar as credenciais:
+   - Vá em "Project Settings" (engrenagem) > "Data API"
+     (em alguns painéis aparece como "API").
+   - Copie o "Project URL"
+       (ex: https://xxxxxxxx.supabase.co)
+   - Copie a chave "anon" / "public".
+
+5) Cole no app:
+   - Abra o arquivo  supabase-config.js  (nesta pasta)
+     em um editor de texto (Bloco de Notas serve).
+   - Substitua "COLE_AQUI_url" pelo Project URL.
+   - Substitua "COLE_AQUI_anonKey" pela chave anon.
+   - Salve o arquivo.
+
+--------------------------------------------------------
+  PASSO 2 - PUBLICAR NO VERCEL
+--------------------------------------------------------
+
+Veja o passo a passo detalhado no arquivo
+  GUIA-VERCEL.txt
+
+Resumo: enviar os arquivos para um repositório no
+GitHub e importar no Vercel. Ele gera um link tipo
+"pastelada.vercel.app" que abre em qualquer celular.
+
+IMPORTANTE: faça o PASSO 1 (colar as credenciais no
+supabase-config.js) ANTES de enviar os arquivos ao
+GitHub/Vercel, para o app já subir sincronizando.
+
+--------------------------------------------------------
+  TESTAR NO SEU COMPUTADOR (opcional)
+--------------------------------------------------------
+
+O modo tempo real precisa que a página seja aberta por
+um endereço http:// ou https:// (ou seja, hospedada).
+Abrir o arquivo com dois cliques (file://) faz o app
+funcionar só no modo local, para testar a aparência.
+
+========================================================

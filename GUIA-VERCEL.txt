@@ -1,0 +1,94 @@
+==========================================================
+  PUBLICAR NA INTERNET COM VERCEL  (100% pelo navegador)
+==========================================================
+
+Você NÃO precisa instalar nada. É tudo pelo site.
+São 2 etapas: (A) subir os arquivos no GitHub e
+(B) o Vercel importar e publicar.
+
+ANTES DE COMEÇAR, confira que o Supabase já está pronto
+(veja o LEIA-ME.txt, PASSO 1):
+  - Rodou o supabase-setup.sql (tabelas criadas).
+  - Colou o Project URL e a chave anon no arquivo
+    supabase-config.js.
+Sem isso o app abre, mas fica "Somente este aparelho"
+(não sincroniza entre os celulares).
+
+
+----------------------------------------------------------
+  ETAPA A - Enviar os arquivos para o GitHub (privado)
+----------------------------------------------------------
+
+1) Crie uma conta grátis em:  https://github.com
+   (se já tiver, é só entrar).
+
+2) No canto superior direito, clique no "+" e depois
+   em "New repository".
+
+3) Preencha:
+   - Repository name:  pastelada
+   - Marque a opção  "Private"   (repositório privado)
+   - Clique em  "Create repository".
+
+4) Na tela seguinte, clique no link:
+   "uploading an existing file"
+   (na frase "...or push an existing repository...").
+
+5) Abra a pasta do app no seu computador:
+
+   Selecione os ARQUIVOS de dentro dela e arraste
+   para a área de upload do GitHub:
+      - index.html
+      - style.css
+      - app.js
+      - supabase-config.js   (já com suas credenciais!)
+      - LEIA-ME.txt
+
+   IMPORTANTE: arraste os ARQUIVOS, não a pasta.
+   O "index.html" precisa ficar na raiz do repositório.
+   (Os arquivos supabase-setup.sql e GUIA-VERCEL.txt não
+    precisam ser enviados, mas não atrapalham se forem.)
+
+6) Clique no botão verde  "Commit changes".
+
+
+----------------------------------------------------------
+  ETAPA B - Publicar no Vercel
+----------------------------------------------------------
+
+1) Acesse:  https://vercel.com
+
+2) Clique em  "Sign Up"  e escolha
+   "Continue with GitHub"  (conecta as duas contas).
+   Autorize o acesso quando ele pedir.
+
+3) Já no painel, clique em  "Add New..."  >  "Project".
+
+4) Na lista de repositórios, encontre  "pastelada"
+   e clique em  "Import".
+   (Se não aparecer, clique em "Adjust GitHub App
+    Permissions" e libere o acesso ao repositório.)
+
+5) NÃO precisa configurar nada:
+   - Framework Preset: "Other"  (deixe como está)
+   - Build/Output: deixe em branco
+   Clique em  "Deploy".
+
+6) Aguarde uns 30 segundos. Ele mostra "Congratulations"
+   e um link parecido com:
+        https://pastelada.vercel.app
+
+   Abra esse link no celular. No topo deve aparecer
+   "Sincronizado". Pronto! Todos que abrirem o link veem
+   os pedidos em tempo real.
+
+
+----------------------------------------------------------
+  DEPOIS: como atualizar o app
+----------------------------------------------------------
+
+Se mudar algum arquivo, envie a nova versão para o mesmo
+repositório no GitHub (mesma Etapa A). O Vercel republica
+sozinho, no mesmo link.
+
+==========================================================

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pastelada da Igreja - Pedidos</title>
+
+<!-- PWA: instalar como app -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e8622c">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Pastelada">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-frame">
+
+  <header class="topbar">
+    <div class="brand">🥟 <span>Pastelada</span></div>
+    <div class="status" id="connStatus">
+      <span class="dot" id="connDot"></span>
+      <span id="connText">Conectando...</span>
+    </div>
+  </header>
+
+  <div id="installBanner" class="install-banner" hidden>
+    <span id="installText">📲 Instalar como aplicativo</span>
+    <button type="button" id="btnInstall" class="btn-install">Instalar</button>
+    <button type="button" id="btnInstallClose" class="btn-install-close" aria-label="Fechar">✕</button>
+  </div>
+
+  <main class="content">
+
+    <!-- ABA: NOVO PEDIDO -->
+    <section id="tab-pedido" class="tab-panel active">
+      <h2 class="tab-title">Novo Pedido</h2>
+
+      <div id="avisoSemSabor" class="empty-hint" hidden>
+        Cadastre pelo menos um sabor na aba <strong>Sabores</strong> antes de registrar pedidos.
+      </div>
+
+      <form id="form-pedido" autocomplete="off">
+        <label class="field">
+          <span>Nome do cliente</span>
+          <input type="text" id="input-cliente" placeholder="Ex: Maria Silva" required>
+        </label>
+
+        <div class="itens-label">Sabores do pedido</div>
+        <div id="itens-pedido"></div>
+
+        <button type="button" id="btn-add-item" class="btn-secondary">+ Adicionar sabor</button>
+
+        <button type="submit" id="btn-submit-pedido" class="btn-primary">Registrar Pedido</button>
+      </form>
+    </section>
+
+    <!-- ABA: PEDIDOS -->
+    <section id="tab-pedidos" class="tab-panel">
+      <h2 class="tab-title">Pedidos</h2>
+
+      <div class="live-strip">
+        <div><strong id="statPedidos">0</strong><span>pedidos</span></div>
+        <div><strong id="statPasteis">0</strong><span>pastéis</span></div>
+        <div><strong id="statTotal">R$ 0,00</strong><span>total</span></div>
+      </div>
+
+      <div class="search-wrap">
+        <input type="search" id="buscaPedido" placeholder="🔍 Buscar pelo nome do cliente" autocomplete="off">
+        <button type="button" id="limparBusca" class="btn-limpar-busca" hidden aria-label="Limpar busca">✕</button>
+      </div>
+
+      <div class="filtros-status">
+        <button type="button" class="chip-status active" data-status="todos">Todos <span class="chip-count" id="cntTodos">0</span></button>
+        <button type="button" class="chip-status" data-status="pendente">Pendentes <span class="chip-count" id="cntPendente">0</span></button>
+        <button type="button" class="chip-status" data-status="concluido">Concluídos <span class="chip-count" id="cntConcluido">0</span></button>
+      </div>
+
+      <div id="listaPedidos" class="lista-pedidos"></div>
+      <div id="pedidosVazio" class="empty-hint" hidden>Nenhum pedido registrado ainda.</div>
+      <div id="pedidosSemResultado" class="empty-hint" hidden>Nenhum pedido encontrado.</div>
+    </section>
+
+    <!-- ABA: SABORES -->
+    <section id="tab-sabores" class="tab-panel">
+      <h2 class="tab-title">Sabores</h2>
+
+      <form id="form-sabor" autocomplete="off">
+        <input type="text" id="input-sabor-nome" placeholder="Nome do novo sabor (ex: Carne)" required>
+        <button type="submit" class="btn-primary btn-inline">Adicionar</button>
+      </form>
+
+      <ul id="lista-sabores" class="lista-sabores"></ul>
+      <div id="saboresVazio" class="empty-hint" hidden>Nenhum sabor cadastrado ainda.</div>
+    </section>
+
+    <!-- ABA: RESUMO -->
+    <section id="tab-resumo" class="tab-panel">
+      <h2 class="tab-title">Resumo</h2>
+
+      <div class="resumo-cards">
+        <div class="resumo-card">
+          <span class="num" id="resumoPedidos">0</span>
+          <span class="label">Pedidos</span>
+        </div>
+        <div class="resumo-card">
+          <span class="num" id="resumoPasteis">0</span>
+          <span class="label">Pastéis</span>
+        </div>
+      </div>
+
+      <div class="resumo-total-card">
+        <span class="label">Total arrecadado</span>
+        <span class="valor" id="resumoTotal">R$ 0,00</span>
+      </div>
+      <p class="preco-nota" id="precoNota">R$ 10,00 por pastel</p>
+
+      <h3 class="sub-title">Por sabor</h3>
+      <div id="resumoSabores" class="resumo-sabores"></div>
+      <div id="resumoVazio" class="empty-hint" hidden>Ainda não há pedidos para resumir.</div>
+    </section>
+
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab-btn active" data-tab="pedido">
+      <span class="ic">🧾</span><span>Novo Pedido</span>
+    </button>
+    <button class="tab-btn" data-tab="pedidos">
+      <span class="ic">📋</span><span>Pedidos</span>
+    </button>
+    <button class="tab-btn" data-tab="sabores">
+      <span class="ic">🥟</span><span>Sabores</span>
+    </button>
+    <button class="tab-btn" data-tab="resumo">
+      <span class="ic">📊</span><span>Resumo</span>
+    </button>
+  </nav>
+
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // Registra o service worker (habilita instalar como app)
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(err =>
+        console.log("Service worker não registrado:", err));
+    });
+  }
+</script>
+</body>
+</html>
